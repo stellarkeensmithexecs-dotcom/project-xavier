@@ -1,6 +1,8 @@
 cta_title: "Level up daily with curated dev wins"
 cta_subtitle: "Get 1 email/day. No fluff. Occasional sponsor."
 affiliates:
+  - title: "PROJECT XAVIER: AI/Fintech Daily Edge Pack"
+    url: "https://www.paypal.com/ncp/payment/9AGGT2R7M8A6C?utm_source=site&utm_medium=cta&utm_campaign={{date}}"
   - title: "Best Dev Courses"
     url: "https://example.com/affiliates/courses?ref=you"
   - title: "Cloud Credits Promo"

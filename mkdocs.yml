@@ -1,20 +1,56 @@
-site_name: Auto Revenue Newsletter
+site_name: PROJECT XAVIER — IT/AI/FINTECH Daily
 site_url: https://stellarkeensmithexecs-dotcom.github.io/project-xavier
 theme:
   name: material
   features:
     - navigation.tabs
     - content.code.copy
+  logo: assets/logo.svg
+  favicon: assets/favicon.svg
+  palette:
+    - scheme: slate
+      primary: indigo
+      accent: cyan
 nav:
   - Home: index.md
+  - Product: product.md
   - Posts: posts/index.md
 repo_url: https://github.com/stellarkeensmithexecs-dotcom/project-xavier
-plugins: []
+plugins:
+  - search
+  - sitemap
+  - rss:
+      use_git: true
+      enabled: true
+      match_path: 'posts/.*'
 markdown_extensions:
   - admonition
   - toc:
       permalink: true
 extra:
+  meta:
+    - name: description
+      content: "Daily curated insights and playbooks for IT, AI, and Fintech operators."
+    - name: keywords
+      content: "IT, AI, artificial intelligence, Fintech, cloud cost, MLOps, LLM, compliance, vendor risk, devops"
+    - property: og:type
+      content: website
+    - property: og:title
+      content: "PROJECT XAVIER — IT/AI/FINTECH Daily"
+    - property: og:description
+      content: "Curated insights, playbooks, and templates for IT/AI/Fintech operators."
+    - property: og:image
+      content: "https://stellarkeensmithexecs-dotcom.github.io/project-xavier/assets/og-card.svg"
+    - name: twitter:card
+      content: summary_large_image
+    - name: twitter:title
+      content: "PROJECT XAVIER — IT/AI/FINTECH Daily"
+    - name: twitter:description
+      content: "Curated insights, playbooks, and templates for IT/AI/Fintech operators."
+    - name: twitter:image
+      content: "https://stellarkeensmithexecs-dotcom.github.io/project-xavier/assets/og-card.svg"
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/stellarkeensmithexecs-dotcom
+extra_javascript:
+  - javascripts/goatcounter.js

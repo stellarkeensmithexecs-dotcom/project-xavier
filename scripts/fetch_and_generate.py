@@ -6,6 +6,7 @@ import yaml
 import frontmatter
 from pathlib import Path
 from jinja2 import Template
+from urllib.parse import urlparse, parse_qsl, urlencode, urlunparse
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / "docs"
@@ -113,12 +114,36 @@ def collect_items(sources_cfg: dict):
     return deduped[:30]
 
 
-def render_post(items, monetization_cfg):
+def add_utm(url: str, source: str, medium: str, campaign: str) -> str:
+    try:
+        parts = urlparse(url)
+        q = dict(parse_qsl(parts.query, keep_blank_values=True))
+        q.setdefault("utm_source", source)
+        q.setdefault("utm_medium", medium)
+        q.setdefault("utm_campaign", campaign)
+        new_query = urlencode(q, doseq=True)
+        return urlunparse((parts.scheme, parts.netloc, parts.path, parts.params, new_query, parts.fragment))
+    except Exception:
+        return url
+
+
+def render_post(items, monetization_cfg, medium: str = "site"):
     today = dt.datetime.utcnow().date()
     title = f"Daily Dev Picks — {today.isoformat()}"
-    description = "Curated developer news and articles."
-    intro = monetization_cfg.get("cta_subtitle", "Daily picks. No fluff.")
-    affiliates = monetization_cfg.get("affiliates", [])
+    description = "Daily curated insights for IT, AI, and Fintech: tools, articles, and playbooks."
+    if medium == "email":
+        intro = "Today’s IT/AI/Fintech picks — short, actionable, and vetted."
+    else:
+        intro = monetization_cfg.get("cta_subtitle", "Daily picks. No fluff.")
+    raw_affiliates = monetization_cfg.get("affiliates", [])
+    # UTM tagging for affiliates/CTAs
+    source = "project-xavier"
+    campaign = today.isoformat()
+    affiliates = []
+    for aff in raw_affiliates:
+        u = aff.get("url", "")
+        aff_url = add_utm(u, source=source, medium=medium, campaign=campaign) if u else u
+        affiliates.append({"title": aff.get("title", ""), "url": aff_url})
     footer_note = monetization_cfg.get("footer_note", "")
     tpl = Template(POST_TEMPLATE)
     content = tpl.render(
@@ -183,10 +208,12 @@ def main():
     items = collect_items(sources_cfg)
     if not items:
         print("[warn] No items collected; generating CTA-only post")
-    title, content = render_post(items, monetization_cfg)
+    title, content = render_post(items, monetization_cfg, medium="site")
     path = write_post(title, content)
     print(f"[info] Wrote post: {path}")
-    maybe_send_buttondown_email(title, content)
+    # Render a refined email body with email-specific UTM params
+    _, email_body = render_post(items, monetization_cfg, medium="email")
+    maybe_send_buttondown_email(title, email_body)
 
 
 if __name__ == "__main__":
