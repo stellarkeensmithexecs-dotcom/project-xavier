@@ -1,0 +1,20 @@
+site_name: Auto Revenue Newsletter
+site_url: https://stellarkeensmithexecs-dotcom.github.io/project-xavier
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - content.code.copy
+nav:
+  - Home: index.md
+  - Posts: posts/index.md
+repo_url: https://github.com/stellarkeensmithexecs-dotcom/project-xavier
+plugins: []
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/stellarkeensmithexecs-dotcom

@@ -1,0 +1,17 @@
+hacker_news:
+  enabled: true
+  top_n: 10
+  min_score: 100
+  # Uses official Firebase HN API (no key required)
+  api_top: https://hacker-news.firebaseio.com/v0/topstories.json
+  api_item: https://hacker-news.firebaseio.com/v0/item/{id}.json
+
+devto:
+  enabled: true
+  # Public DEV API
+  api: https://dev.to/api/articles?top=1&per_page=20
+
+rss:
+  enabled: false
+  feeds:
+    - https://hnrss.org/frontpage

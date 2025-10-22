@@ -1,0 +1,10 @@
+cta_title: "Level up daily with curated dev wins"
+cta_subtitle: "Get 1 email/day. No fluff. Occasional sponsor."
+affiliates:
+  - title: "Best Dev Courses"
+    url: "https://example.com/affiliates/courses?ref=you"
+  - title: "Cloud Credits Promo"
+    url: "https://example.com/affiliates/cloud?ref=you"
+  - title: "Design Assets Pack"
+    url: "https://example.com/affiliates/design?ref=you"
+footer_note: "This email may contain affiliate links."
